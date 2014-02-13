@@ -1,9 +1,12 @@
 package com.nickotter.andspot;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
 public class MainActivity extends Activity
 {
@@ -13,6 +16,8 @@ public class MainActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        openPlay();
     }
     
     @Override
@@ -21,5 +26,35 @@ public class MainActivity extends Activity
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_activity_actions, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.settings:
+                openSettings();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    
+    protected void openPlay() {
+        PlayFragment playFragment = new PlayFragment();
+        
+        // Add the fragment to the 'fragment_container' FrameLayout
+        getFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, playFragment).commit();
+    	
+    }
+    
+    protected void openSettings() {
+
+        SettingsFragment settingsFragment = new SettingsFragment();
+        
+        getFragmentManager().beginTransaction()
+        .replace(R.id.fragment_container, settingsFragment).addToBackStack(null).commit();
+    	
     }
 }

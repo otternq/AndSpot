@@ -30,6 +30,8 @@ public class PlayFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
         Bundle savedInstanceState) {
 		
+		getActivity().getActionBar().show();
+		
 		// Inflate the layout for this fragment
         View mRoot = inflater.inflate(R.layout.activity_play_fragment, container, false);
 		

@@ -25,6 +25,10 @@ public class MainActivity extends Activity
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_activity_actions, menu);
+        
+        MenuItem item = menu.findItem(R.id.play);
+        item.setVisible(false);
+        
         return super.onCreateOptionsMenu(menu);
     }
     

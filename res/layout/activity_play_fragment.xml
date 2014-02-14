@@ -14,4 +14,15 @@
         android:layout_height="wrap_content"
         android:text="Please set your Spot URL in the Settings" />
 
+    <ImageView
+        android:id="@+id/playingImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/spotURL"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/spotURL"
+        android:layout_below="@+id/spotURL"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/ic_launcher" />
+
 </RelativeLayout>

@@ -9,6 +9,8 @@ public class SettingsFragment extends PreferenceFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
+        Analytics.settingsScreen(getActivity());
+        
         addPreferencesFromResource(R.xml.settings);
  
     }

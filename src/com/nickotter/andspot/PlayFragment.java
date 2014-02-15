@@ -38,6 +38,8 @@ public class PlayFragment extends Fragment implements OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
         Bundle savedInstanceState) {
 		
+		Analytics.playScreen(getActivity());
+		
 		// Inflate the layout for this fragment
         View mRoot = inflater.inflate(R.layout.activity_play_fragment, container, false);
         
@@ -97,11 +99,15 @@ public class PlayFragment extends Fragment implements OnClickListener {
 				audioEndpoint = new Audio();
 				audioEndpoint.execute(prefSpotURL +"/back", "PUT");
 				
+				Analytics.clickBack(getActivity());
+				
 				update();
 			break;
 			case R.id.next:
 				audioEndpoint = new Audio();
 				audioEndpoint.execute(prefSpotURL +"/next", "PUT");
+				
+				Analytics.clickNext(getActivity());
 				
 				update();
 			break;
@@ -109,12 +115,16 @@ public class PlayFragment extends Fragment implements OnClickListener {
 				audioEndpoint = new Audio();
 				audioEndpoint.execute(prefSpotURL +"/pause", "PUT");
 				
+				Analytics.clickPause(getActivity());
+				
 				pauseButton.setVisibility(View.GONE);
 				playButton.setVisibility(View.VISIBLE);
 			break;
 			case R.id.play:
 				audioEndpoint = new Audio();
 				audioEndpoint.execute(prefSpotURL +"/play", "PUT");
+				
+				Analytics.clickPlay(getActivity());
 				
 				pauseButton.setVisibility(View.VISIBLE);
 				playButton.setVisibility(View.GONE);

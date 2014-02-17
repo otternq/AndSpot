@@ -12,6 +12,8 @@ public class SettingsFragment extends PreferenceFragment {
         Analytics.settingsScreen(getActivity());
         
         addPreferencesFromResource(R.xml.settings);
+        
+        getActivity().findViewById(R.id.fragment_container).setPadding(0, 100, 0, 0);
  
     }
 

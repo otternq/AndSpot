@@ -55,7 +55,7 @@ public class MainActivity extends Activity
         SettingsFragment settingsFragment = new SettingsFragment();
         
         getFragmentManager().beginTransaction()
-        .replace(R.id.fragment_container, settingsFragment).addToBackStack(null).commit();
+        .replace(R.id.fragment_container, settingsFragment).addToBackStack("settings").commit();
     	
     }
 }

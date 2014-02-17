@@ -24,6 +24,7 @@ import android.widget.TextView;
 public class PlayFragment extends Fragment implements OnClickListener {
 
 	private static final String TAG = "PlayFragment";
+	private Boolean rendered = false;
 
 	ImageView albumArt;
 	
@@ -38,11 +39,13 @@ public class PlayFragment extends Fragment implements OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
         Bundle savedInstanceState) {
 		
+		getActivity().findViewById(R.id.fragment_container).setPadding(0, 0, 0, 0);
+		
 		Analytics.playScreen(getActivity());
 		
-		// Inflate the layout for this fragment
-        View mRoot = inflater.inflate(R.layout.activity_play_fragment, container, false);
-        
+		// Inflate the layout for this fragment		
+		View mRoot = inflater.inflate(R.layout.activity_play_fragment, container, false);
+	        
 		albumArt = (ImageView) mRoot.findViewById(R.id.playingImg);
 
 		backButton = (ImageButton) mRoot.findViewById(R.id.back);

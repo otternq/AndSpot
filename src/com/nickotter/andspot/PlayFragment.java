@@ -7,6 +7,7 @@ import java.net.URL;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -34,6 +35,25 @@ public class PlayFragment extends Fragment implements OnClickListener {
 	ImageButton nextButton;
 	
 	String prefSpotURL;
+	private OnPlaybackListener mCallback;
+	
+	public interface OnPlaybackListener {
+		public void updateText();
+	}
+	
+	@Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = (OnPlaybackListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
+    }
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,6 +115,7 @@ public class PlayFragment extends Fragment implements OnClickListener {
 				Analytics.clickBack(getActivity());
 				
 				update();
+				mCallback.updateText();
 			break;
 			case R.id.next:
 				audioEndpoint = new Audio();
@@ -103,6 +124,7 @@ public class PlayFragment extends Fragment implements OnClickListener {
 				Analytics.clickNext(getActivity());
 				
 				update();
+				mCallback.updateText();
 			break;
 			case R.id.pause:
 				audioEndpoint = new Audio();

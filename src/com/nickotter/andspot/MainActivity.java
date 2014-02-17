@@ -1,5 +1,7 @@
 package com.nickotter.andspot;
 
+import com.nickotter.andspot.PlayFragment.OnPlaybackListener;
+
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -11,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class MainActivity extends Activity
+public class MainActivity extends Activity implements OnPlaybackListener
 {
     protected String prefSpotURL;
 
@@ -28,14 +30,14 @@ public class MainActivity extends Activity
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 		prefSpotURL = sharedPref.getString("prefSpotURL", null);
 		
-		setText();
+		updateText();
         openPlay();
     }
     
     @Override
     public void onResume() {
     	super.onResume();
-    	setText();
+    	updateText();
     }
     
     @Override
@@ -59,7 +61,7 @@ public class MainActivity extends Activity
         }
     }
     
-    protected void setText() {
+    public void updateText() {
 		
     	if (prefSpotURL != null) {
 			SongTitle getTitle = new SongTitle(this);

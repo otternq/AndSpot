@@ -16,7 +16,7 @@ public class Analytics {
 	
 		// This screen name value will remain set on the tracker and sent with
 		// hits until it is set to a new value or to null.
-		easyTracker.set(Fields.SCREEN_NAME, "Home Screen");
+		easyTracker.set(Fields.SCREEN_NAME, name);
 	
 		easyTracker.send(MapBuilder
 		    .createAppView()

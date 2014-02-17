@@ -28,6 +28,14 @@
             android:name="com.nickotter.andspot.PlayFragment"
             android:label="@string/title_activity_play_fragment" >
         </activity>
+        <activity
+            android:name="com.nickotter.andspot.SettingsActivity"
+            android:label="@string/title_activity_setting" >
+        </activity>
+        <activity
+            android:name="com.nickotter.andspot.SettingsFragment"
+            android:label="@string/title_activity_settings_fragment" >
+        </activity>
     </application>
 
 </manifest>

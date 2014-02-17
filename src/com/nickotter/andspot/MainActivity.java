@@ -3,20 +3,29 @@ package com.nickotter.andspot;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 public class MainActivity extends Activity
 {
-    /** Called when the activity is first created. */
+    protected String prefSpotURL;
+
+	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+		prefSpotURL = sharedPref.getString("prefSpotURL", null);
+		
+		setText();
         openPlay();
     }
     
@@ -41,21 +50,28 @@ public class MainActivity extends Activity
         }
     }
     
+    protected void setText() {
+		
+    	if (prefSpotURL != null) {
+			SongTitle getTitle = new SongTitle(this);
+			getTitle.execute(prefSpotURL + "/playing");
+    	}
+		
+	}
+    
     protected void openPlay() {
         PlayFragment playFragment = new PlayFragment();
         
         // Add the fragment to the 'fragment_container' FrameLayout
         getFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, playFragment).commit();
+                .replace(R.id.fragment_container, playFragment).commit();
     	
     }
     
     protected void openSettings() {
-
-        SettingsFragment settingsFragment = new SettingsFragment();
-        
-        getFragmentManager().beginTransaction()
-        .replace(R.id.fragment_container, settingsFragment).addToBackStack("settings").commit();
+    	
+    	Intent intent = new Intent(this, SettingsActivity.class);
+    	startActivity(intent);
     	
     }
 }

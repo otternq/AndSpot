@@ -71,7 +71,6 @@ public class PlayFragment extends Fragment implements OnClickListener {
 	protected void update() {
 		if (prefSpotURL != null) {
 			setImage();
-			setText();
 		}
 	}
 	
@@ -82,13 +81,6 @@ public class PlayFragment extends Fragment implements OnClickListener {
 		
 		DownloadIconTask dt = new DownloadIconTask(getActivity().getActionBar());
 		dt.execute(prefSpotURL + "/playing.png");
-		
-	}
-	
-	protected void setText() {
-		
-		SongTitle getTitle = new SongTitle(getActivity());
-		getTitle.execute(prefSpotURL + "/playing");
 		
 	}
 

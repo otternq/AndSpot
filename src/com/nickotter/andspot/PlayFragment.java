@@ -41,8 +41,6 @@ public class PlayFragment extends Fragment implements OnClickListener {
 		
 		getActivity().findViewById(R.id.fragment_container).setPadding(0, 0, 0, 0);
 		
-		Analytics.playScreen(getActivity());
-		
 		// Inflate the layout for this fragment		
 		View mRoot = inflater.inflate(R.layout.activity_play_fragment, container, false);
 	        

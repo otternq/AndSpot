@@ -20,6 +20,9 @@ public class MainActivity extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        
+        Analytics.playScreen(this);
+        
         setContentView(R.layout.main);
         
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -27,6 +30,12 @@ public class MainActivity extends Activity
 		
 		setText();
         openPlay();
+    }
+    
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	setText();
     }
     
     @Override

@@ -3,6 +3,8 @@ AndSpot
 
 An Android controller for [Spot](https://github.com/minton/Spot)
 
+Install at [Google Play Store](https://play.google.com/store/apps/details?id=com.nickotter.andspot&referrer=utm_source%3Dgithub)
+
 ##About
 
 Send Play, Pause, and Skip commands to your Spot installation

@@ -29,7 +29,7 @@ public class DownloadImagesTask extends AsyncTask<String, Integer, Bitmap> {
 
 	protected Bitmap doInBackground(String... params) {
 		
-		URLConnection conn = null;;
+		URLConnection conn = null;
 		try {
 			conn = new URL( params[0] ).openConnection();
 			conn.connect();

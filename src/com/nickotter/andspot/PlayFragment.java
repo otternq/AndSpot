@@ -1,18 +1,10 @@
 package com.nickotter.andspot;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,14 +12,15 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 
-public class PlayFragment extends Fragment implements OnClickListener {
+public class PlayFragment extends Fragment implements OnClickListener, Runnable {
 
 	private static final String TAG = "PlayFragment";
-	private Boolean rendered = false;
 
 	ImageView albumArt;
+	
+	ProgressBar progressBar;
 	
 	ImageButton backButton;
 	ImageButton pauseButton;
@@ -36,6 +29,7 @@ public class PlayFragment extends Fragment implements OnClickListener {
 	
 	String prefSpotURL;
 	private OnPlaybackListener mCallback;
+	private Thread progressTask;
 	
 	public interface OnPlaybackListener {
 		public void updateText();
@@ -65,6 +59,9 @@ public class PlayFragment extends Fragment implements OnClickListener {
 		View mRoot = inflater.inflate(R.layout.activity_play_fragment, container, false);
 	        
 		albumArt = (ImageView) mRoot.findViewById(R.id.playingImg);
+		
+		progressBar = (ProgressBar) mRoot.findViewById(R.id.progress);
+		progressBar.setProgress(0);
 
 		backButton = (ImageButton) mRoot.findViewById(R.id.back);
 		pauseButton = (ImageButton) mRoot.findViewById(R.id.pause);
@@ -89,8 +86,37 @@ public class PlayFragment extends Fragment implements OnClickListener {
 	protected void update() {
 		if (prefSpotURL != null) {
 			setImage();
+			setProgress();
 		}
 	}
+	
+	protected void setProgress() {
+		
+		progressTask = new Thread(this);
+		
+		ProgressBarTask dit = new ProgressBarTask(progressBar, progressTask);
+		dit.execute(prefSpotURL + "/seconds-left");
+	}
+	
+	@Override
+    public void run() {
+        int currentPosition= 0;
+        while (currentPosition < progressBar.getMax()) {
+            try {
+                Thread.sleep(1000);
+                currentPosition++;
+            } catch (InterruptedException e) {
+                return;
+            } catch (Exception e) {
+                return;
+            }            
+            progressBar.setProgress(currentPosition);
+            
+        }
+        
+        update();
+        mCallback.updateText();
+    }
 	
 	protected void setImage() {
 		

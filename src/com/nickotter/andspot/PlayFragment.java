@@ -114,17 +114,31 @@ public class PlayFragment extends Fragment implements OnClickListener, Runnable 
             
         }
         
+        //Give Spot a second to updae info
+        try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
         update();
         mCallback.updateText();
     }
 	
 	protected void setImage() {
 		
-		DownloadImagesTask dit = new DownloadImagesTask(albumArt);
-		dit.execute(prefSpotURL + "/playing.png");
+		try {
 		
-		DownloadIconTask dt = new DownloadIconTask(getActivity().getActionBar());
-		dt.execute(prefSpotURL + "/playing.png");
+			DownloadImagesTask dit = new DownloadImagesTask(albumArt);
+			dit.execute(prefSpotURL + "/playing.png");
+			
+			DownloadIconTask dt = new DownloadIconTask(getActivity().getActionBar());
+			dt.execute(prefSpotURL + "/playing.png");
+		
+		} catch(NullPointerException e) {
+			e.printStackTrace();
+		}
 		
 	}
 

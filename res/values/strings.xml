@@ -7,5 +7,7 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_setting">Settings</string>
+    
+    <string name="search_hint">Song Name/Artist</string>
 
 </resources>

@@ -20,7 +20,10 @@ import android.widget.SearchView;
 public class MainActivity extends Activity implements OnPlaybackListener
 {
     private static final String TAG = "MainActivity";
-	protected String prefSpotURL;
+	
+    protected String prefSpotURL;
+	
+	protected PlayFragment playFragment;
 
 	/** Called when the activity is first created. */
     @Override
@@ -41,7 +44,11 @@ public class MainActivity extends Activity implements OnPlaybackListener
     @Override
     public void onResume() {
     	super.onResume();
-    	updateText();
+    	update();
+    	
+    	if (playFragment != null) {
+    		this.playFragment.setImage();
+    	}
     }
     
     @Override
@@ -88,7 +95,7 @@ public class MainActivity extends Activity implements OnPlaybackListener
     	
         if(Intent.ACTION_MAIN.equals(intent.getAction())) {
         	
-        	updateText();
+        	update();
             openPlay();
         	
         } else if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
@@ -97,6 +104,11 @@ public class MainActivity extends Activity implements OnPlaybackListener
             String query = intent.getStringExtra(SearchManager.QUERY);
             openSearch(query);
         }
+    }
+    
+    public void update() {
+    	updateText();
+    	updateIcon();
     }
     
     public void updateText() {
@@ -108,8 +120,13 @@ public class MainActivity extends Activity implements OnPlaybackListener
 		
 	}
     
+    public void updateIcon() {
+    	DownloadIconTask dt = new DownloadIconTask(getActionBar());
+		dt.execute(prefSpotURL + "/playing.png");
+    }
+    
     protected void openPlay() {
-        PlayFragment playFragment = new PlayFragment();
+        playFragment = new PlayFragment();
         
         // Add the fragment to the 'fragment_container' FrameLayout
         getFragmentManager().beginTransaction()

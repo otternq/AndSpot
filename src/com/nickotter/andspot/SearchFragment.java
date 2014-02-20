@@ -52,6 +52,10 @@ public class SearchFragment extends ListFragment {
 	    		prefSpotURL, 
 	    		song.getUri()
 	    );
+	    
+	    mCallback.update();
+	    
+	    getActivity().finish();
 	  }
 	  
 	  @Override

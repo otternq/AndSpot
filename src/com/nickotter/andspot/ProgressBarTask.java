@@ -20,18 +20,16 @@ public class ProgressBarTask extends AsyncTask<String, ProgressBar, String> {
 	
 	private static final String TAG = "ProgressBarTask";
 	
-	private WeakReference<Thread> progressBarThreadReference;
-	private WeakReference<ProgressBar> viewReference;
+	private Thread progressBarThread;
+	private ProgressBar progressBar;
 	
 	public ProgressBarTask( ProgressBar progressBar, Thread progressBarThread ) {
-	    viewReference = new WeakReference<ProgressBar>( progressBar );
-	    progressBarThreadReference = new WeakReference<Thread>( progressBarThread );
+	    this.progressBar = progressBar;
+	    this.progressBarThread = progressBarThread;
 	}
 	 
 	@Override
 	protected void onPostExecute( String result ) {
-	    ProgressBar progressBar = viewReference.get();
-	    Thread progressBarThread = progressBarThreadReference.get();
 	    if( progressBar != null ) {
 	      progressBar.setMax((int) Math.floor(Float.parseFloat(result)));
 	      progressBarThread.start();

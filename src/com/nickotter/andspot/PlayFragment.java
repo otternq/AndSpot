@@ -32,7 +32,7 @@ public class PlayFragment extends Fragment implements OnClickListener, Runnable 
 	private Thread progressTask;
 	
 	public interface OnPlaybackListener {
-		public void updateText();
+		public void update();
 	}
 	
 	@Override
@@ -83,7 +83,7 @@ public class PlayFragment extends Fragment implements OnClickListener, Runnable 
         return mRoot;
     }
 	
-	protected void update() {
+	public void update() {
 		if (prefSpotURL != null) {
 			setImage();
 			setProgress();
@@ -92,10 +92,12 @@ public class PlayFragment extends Fragment implements OnClickListener, Runnable 
 	
 	protected void setProgress() {
 		
-		progressTask = new Thread(this);
-		
-		ProgressBarTask dit = new ProgressBarTask(progressBar, progressTask);
-		dit.execute(prefSpotURL + "/seconds-left");
+		if (progressBar != null) {
+			progressTask = new Thread(this);
+			
+			ProgressBarTask dit = new ProgressBarTask(progressBar, progressTask);
+			dit.execute(prefSpotURL + "/seconds-left");
+		}
 	}
 	
 	@Override
@@ -123,18 +125,17 @@ public class PlayFragment extends Fragment implements OnClickListener, Runnable 
 		}
         
         update();
-        mCallback.updateText();
+        mCallback.update();
     }
 	
-	protected void setImage() {
+	public void setImage() {
 		
 		try {
 		
 			DownloadImagesTask dit = new DownloadImagesTask(albumArt);
 			dit.execute(prefSpotURL + "/playing.png");
 			
-			DownloadIconTask dt = new DownloadIconTask(getActivity().getActionBar());
-			dt.execute(prefSpotURL + "/playing.png");
+			
 		
 		} catch(NullPointerException e) {
 			e.printStackTrace();
@@ -155,7 +156,7 @@ public class PlayFragment extends Fragment implements OnClickListener, Runnable 
 				Analytics.clickBack(getActivity());
 				
 				update();
-				mCallback.updateText();
+				mCallback.update();
 			break;
 			case R.id.next:
 				audioEndpoint = new Audio();
@@ -164,7 +165,7 @@ public class PlayFragment extends Fragment implements OnClickListener, Runnable 
 				Analytics.clickNext(getActivity());
 				
 				update();
-				mCallback.updateText();
+				mCallback.update();
 			break;
 			case R.id.pause:
 				audioEndpoint = new Audio();

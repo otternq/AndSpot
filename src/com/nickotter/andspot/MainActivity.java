@@ -73,7 +73,7 @@ public class MainActivity extends Activity implements OnPlaybackListener
         // Handle presses on the action bar items
         switch (item.getItemId()) {
         	case R.id.search:
-        		
+        		Analytics.clickSearch(this);
         		return true;
             case R.id.settings:
                 openSettings();

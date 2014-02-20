@@ -64,6 +64,14 @@ public class Analytics {
 		Analytics.event(context, "Controlls", "ButtonClick", "Next");
 	}
 	
+	public static void clickSong(Context context) {
+		Analytics.event(context, "Search", "Play", "URI");
+	}
+	
+	public static void clickSearch(Context context) {
+		Analytics.event(context, "Search", "Query", null);
+	}
+	
 	
 	
 	

@@ -47,6 +47,8 @@ public class SearchFragment extends ListFragment {
 	    Song song = (Song) getListAdapter().getItem(position);
 	    Log.v(TAG, song.getName() + " " + song.getUri());
 	    
+	    Analytics.clickSong(getActivity());
+	    
 	    PlayURI pu = new PlayURI();
 	    pu.execute(
 	    		prefSpotURL, 

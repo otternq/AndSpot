@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 public class PlayFragment extends Fragment implements OnClickListener, Runnable {
 
@@ -27,7 +28,10 @@ public class PlayFragment extends Fragment implements OnClickListener, Runnable 
 	ImageButton playButton;
 	ImageButton nextButton;
 	
+	RelativeLayout controlls;
+	
 	String prefSpotURL;
+	
 	private OnPlaybackListener mCallback;
 	private Thread progressTask;
 	
@@ -67,11 +71,15 @@ public class PlayFragment extends Fragment implements OnClickListener, Runnable 
 		pauseButton = (ImageButton) mRoot.findViewById(R.id.pause);
 		playButton = (ImageButton) mRoot.findViewById(R.id.play);
 		nextButton = (ImageButton) mRoot.findViewById(R.id.next);
+		controlls = (RelativeLayout) mRoot.findViewById(R.id.playback);
 		
 		backButton.setOnClickListener(this);
 		pauseButton.setOnClickListener(this);
 		playButton.setOnClickListener(this);
 		nextButton.setOnClickListener(this);
+		albumArt.setOnClickListener(this);
+		
+		
 		
 		pauseButton.setVisibility(View.GONE);
 		
@@ -184,6 +192,15 @@ public class PlayFragment extends Fragment implements OnClickListener, Runnable 
 				
 				pauseButton.setVisibility(View.VISIBLE);
 				playButton.setVisibility(View.GONE);
+			break;
+			case R.id.playingImg:
+				
+				if (controlls.getVisibility() == View.GONE) {
+					controlls.setVisibility(View.VISIBLE);
+				} else {
+					controlls.setVisibility(View.GONE);
+				}
+				
 			break;
 			default:
 				Log.v(TAG, "No case for given id");
